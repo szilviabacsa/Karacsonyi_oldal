@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Ajándék Webshop</title>
+  <style>
+    /* Alap beállítások */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-image: url("karifa.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* 1. Menüsáv */
+    .navbar {
+      background-color: #222;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+    .navbar a:hover {
+      color: #ffcc00;
+    }
+    .kosar-doboz {
+      background-color: #b30000;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    /* Visszaszámláló sáv */
+    .akcio-sav {
+      background-color: #fff0f0;
+      color: #b30000;
+      text-align: center;
+      padding: 10px;
+      border-bottom: 2px solid #b30000;
+      font-weight: bold;
+    }
+
+    /* 2. Termékek rácsa (3 oszlop = 9 kártya 3 sorban) */
+    .kontener {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+    .termek-racs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* Termékkártya */
+    .kartya {
+      background-color: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .kartya-kep {
+      width: 100%;
+      height: 200px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      object-fit: contain;
+      background-color: transparent;
+      line-height: 200px;
+      color: #222;
+    }
+
+    .ar {
+      font-size: 18px;
+      font-weight: bold;
+      color: #b30000;
+      margin: 10px 0;
+    }
+    .gomb {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .gomb:hover {
+      background-color: #218838;
+    }
+
+    /* 3. Kosár összegző doboz alul */
+    .kosar-reszlet {
+      background-color: white;
+      border: 2px solid #222;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .torol-gomb {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .kontener h2{
+        color: white;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Menüsáv -->
+  <div class="navbar">
+    <div>
+      <a href="#">Kezdőlap</a>
+      <a href="#termekek">Termékek</a>
+      <a href="#kosar">Kosár</a>
+    </div>
+    <div class="kosar-doboz">Kosár: <span id="kosar-db">0</span> db (<span id="kosar-osszeg">0</span> Ft)</div>
+  </div>
+
+  <!-- Karácsonyi visszaszámláló -->
+  <div class="akcio-sav">Karácsonyig hátralévő idő: <span id="szamlalo"></span></div>
+
+  <!-- Fő tartalom -->
+  <div class="kontener" id="termekek">
+    <h2>Kiemelt Termékeink</h2>
+
+    <!-- 9 Termékkártya -->
+    <div class="termek-racs">
+      <div class="kartya">
+        <img src="bogre.jpg" class="kartya-kep" alt="Karácsonyi Bögre">
+        <h3>Karácsonyi Bögre</h3>
+        <p class="ar">2 500 Ft</p>
+        <button class="gomb" onclick="kosarba('Karácsonyi Bögre', 2500)">Kosárba tesz</button>
+      </div>
+
+      <div class="kartya">
+        <img src="sal.jpg" class="kartya-kep" alt="Téli Sál">
+        <h3>Téli Sál</h3>
+        <p class="ar">4 900 Ft</p>
+        <button class="gomb" onclick="kosarba('Téli Sál', 4900)">Kosárba tesz</button>
+      </div>
+
+      <div class="kartya">
+        <img src="illatgyertya.jpg" class="kartya-kep" alt="Illatgyertya">
+        <h3>Illatgyertya</h3>
+        <p class="ar">3 200 Ft</p>
+        <button class="gomb" onclick="kosarba('Illatgyertya', 3200)">Kosárba tesz</button>
+      </div>
+
+      <div class="kartya">
+        <img src="zokni.jpg" class="kartya-kep" alt="Meleg Zokni">
+        <h3>Meleg Zokni</h3>
+        <p class="ar">1 800 Ft</p>
+        <button class="gomb" onclick="kosarba('Meleg Zokni', 1800)">Kosárba tesz</button>
+      </div>
+
+      <div class="kartya">
+       <img src="csokolade.jpg" class="kartya-kep" alt="Csokoládé Válogatás">
+        <h3>Csokoládé Válogatás</h3>
+        <p class="ar">5 500 Ft</p>
+        <button class="gomb" onclick="kosarba('Csokoládé Válogatás', 5500)">Kosárba tesz</button>
+      </div>
+
+      <div class="kartya">
+        <img src="fenyfuzer.jpg" class="kartya-kep" alt="Fényfüzér">
+        <h3>Fényfüzér</h3>
+        <p class="ar">3 900 Ft</p>
+        <button class="gomb" onclick="kosarba('Fényfüzér', 3900)">Kosárba tesz</button>
+      </div>
+
+      <div class="kartya">
+        <img src="teavalogatas.jpg" class="kartya-kep" alt="Teaválogatás">
+        <h3>Teaválogatás</h3>
+        <p class="ar">2 900 Ft</p>
+        <button class="gomb" onclick="kosarba('Teaválogatás', 2900)">Kosárba tesz</button>
+      </div>
+
+      <div class="kartya">
+        <img src="sapka.jpg" class="kartya-kep" alt="Kötött Sapka">
+        <h3>Kötött Sapka</h3>
+        <p class="ar">4 200 Ft</p>
+        <button class="gomb" onclick="kosarba('Kötött Sapka', 4200)">Kosárba tesz</button>
+      </div>
+
+      <div class="kartya">
+        <img src="ajandekcsomag.jpg" class="kartya-kep" alt="Ajándékcsomag">
+        <h3>Ajándékcsomag</h3>
+        <p class="ar">8 500 Ft</p>
+        <button class="gomb" onclick="kosarba('Ajándékcsomag', 8500)">Kosárba tesz</button>
+      </div>
+    </div>
+
+    <!-- Kosár tartalma alul -->
+    <div class="kosar-reszlet" id="kosar">
+      <h3>Kosár tartalma</h3>
+      <ul id="kosar-lista">
+        <li>A kosár jelenleg üres.</li>
+      </ul>
+      <p><strong>Végösszeg: <span id="vegosszeg">0</span> Ft</strong></p>
+      <button class="torol-gomb" onclick="kosarUritese()">Kosár ürítése</button>
+    </div>
+  </div>
+
+  <script>
+    // --- VISSZASZÁMLÁLÓ ---
+    let celDatum = new Date("2026-12-24 23:59:00").getTime();
+    let szamlaloDoboz = document.getElementById("szamlalo");
+
+    function frissit() {
+      let most = new Date().getTime();
+      let kulonbseg = celDatum - most;
+
+      if (kulonbseg > 0) {
+        let nap = Math.floor(kulonbseg / (1000 * 60 * 60 * 24));
+        let ora = Math.floor((kulonbseg / (1000 * 60 * 60)) % 24);
+        let perc = Math.floor((kulonbseg / (1000 * 60)) % 60);
+        let masodperc = Math.floor((kulonbseg / 1000) % 60);
+
+        szamlaloDoboz.innerHTML = nap + " nap " + ora + " óra " + perc + " perc " + masodperc + " mp";
+      } else {
+        szamlaloDoboz.innerHTML = "Boldog Karácsonyt!";
+      }
+    }
+    frissit();
+    setInterval(frissit, 1000);
+
+    // --- KOSÁR KEZELÉSE ---
+    let darab = 0;
+    let osszeg = 0;
+    let lista = document.getElementById("kosar-lista");
+
+    function kosarba(nev, ar) {
+      // Ha még üres volt a lista, töröljük az "üres" szöveget
+      if (darab === 0) {
+        lista.innerHTML = "";
+      }
+
+      darab = darab + 1;
+      osszeg = osszeg + ar;
+
+      // Új sor hozzáadása a kosár listához
+      lista.innerHTML += "<li>" + nev + " - " + ar + " Ft</li>";
+
+      // Számok frissítése a menüsávban és alul
+      document.getElementById("kosar-db").innerHTML = darab;
+      document.getElementById("kosar-osszeg").innerHTML = osszeg;
+      document.getElementById("vegosszeg").innerHTML = osszeg;
+    }
+
+    function kosarUritese() {
+      darab = 0;
+      osszeg = 0;
+      lista.innerHTML = "<li>A kosár jelenleg üres.</li>";
+      document.getElementById("kosar-db").innerHTML = 0;
+      document.getElementById("kosar-osszeg").innerHTML = 0;
+      document.getElementById("vegosszeg").innerHTML = 0;
+    }
+  </script>
+    <!-- A képeket a pexels oldalról gyűjtöttem -->
+</body>
+</html>
